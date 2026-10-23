@@ -1,0 +1,21 @@
+{
+  "name": "TalentQuesst",
+  "short_name": "TalentQuesst",
+  "description": "Specialist talent search for business-critical non-tech roles",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#F26B1C",
+  "background_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -24,8 +24,13 @@ Open `index.html` in any browser or deploy to any static host.
 
 ```
 TalentQuesst/
-├── index.html      # Single-file PWA — all HTML, CSS and JS inline
-└── README.md       # Project documentation
+├── index.html          # HTML — clean structure, links to external CSS & JS
+├── css/
+│   └── styles.css      # All styles — design tokens, layout, components
+├── js/
+│   └── main.js         # All JavaScript — nav, ticker, animations, form
+├── manifest.json       # PWA manifest — icons, theme, display mode
+└── README.md           # Project documentation
 ```
 
 ---
