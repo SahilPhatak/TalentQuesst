@@ -1,59 +1,183 @@
-/* PWA manifest */
-const manifest = {
-  name:'TalentQuesst',short_name:'TalentQuesst',
-  start_url:'/',display:'standalone',
-  theme_color:'#F26B1C',background_color:'#FFFFFF',
-  icons:[{src:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="32" fill="%23F26B1C"/><text x="96" y="130" text-anchor="middle" font-family="system-ui" font-size="100" font-weight="bold" fill="white">TQ</text></svg>',sizes:'192x192',type:'image/svg+xml'}]
-};
-const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-document.getElementById('manifest-link').href=URL.createObjectURL(blob);
-
-/* Nav scroll */
 const nav=document.getElementById('main-nav');
-const handleScroll=()=>nav.classList.toggle('scrolled',scrollY>10);
-window.addEventListener('scroll',handleScroll,{passive:true});
-handleScroll();
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+nav.classList.toggle('scrolled',scrollY>10);
 
-/* Hamburger */
 const hb=document.getElementById('hamburger');
 const nl=document.getElementById('nav-links');
 hb.addEventListener('click',()=>nl.classList.toggle('open'));
 nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
 
-/* Theme */
-let theme=null;
-try{theme=localStorage.getItem('tq-theme')}catch(e){}
-if(theme)document.documentElement.setAttribute('data-theme',theme);
 
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-/* Ticker — client logos as styled text */
-const clients=[
-  {name:'KUKU FM',color:'#E8173D'},
-  {name:'meesho',color:'#9F1895'},
-  {name:'DigitalOcean',color:'#0080FF'},
-  {name:'AiPrise',color:'#2563EB'},
-  {name:'mediamelon',color:'#E85C19'},
-  {name:'thumpN',color:'#0D0D0D'},
-  {name:'e3Group',color:'#003087'},
-  {name:'Zeroto1',color:'#D4A017'},
-  {name:'BusinessOnBot',color:'#00A884'},
-  {name:'Converse Now',color:'#6B21A8'},
-  {name:'orvera ai',color:'#1A56DB'},
-];
-const doubled=[...clients,...clients];
-const t=document.getElementById('ticker');
-t.innerHTML=doubled.map((c,i)=>`<span class="ticker-item" style="color:${c.color}">${c.name}</span><span class="tick-sep"></span>`).join('');
-
-/* Reveal */
-const reveals=document.querySelectorAll('.reveal');
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
-},{threshold:.15});
-reveals.forEach(el=>ro.observe(el));
-
-/* Contact form */
 document.getElementById('contact-form').addEventListener('submit',e=>{
   e.preventDefault();
   document.getElementById('contact-form').style.display='none';
   document.getElementById('form-done').style.display='block';
 });
+
+(function(){
+  var pages = ['home','services','about'];
+  // Active nav highlight helper
+  function setActiveNav(pageId){
+    document.querySelectorAll('.nav-page-link').forEach(function(a){
+      a.classList.toggle('active-page', a.dataset.page===pageId);
+    });
+  }
+  function showPage(id){
+    pages.forEach(function(p){
+      var el = document.getElementById('page-'+p);
+      if(el) el.classList.toggle('active', p===id);
+    });
+    document.querySelectorAll('.nav-page-link').forEach(function(a){
+      a.classList.toggle('active-page', a.dataset.page===id);
+    });
+    window.scrollTo(0,0);
+    setActiveNav(id);
+    // re-trigger reveal for newly visible page
+    setTimeout(function(){
+      document.querySelectorAll('#page-'+id+' .reveal').forEach(function(el){
+        el.classList.add('visible');
+      });
+    },50);
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.nav-page-link').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        if(this.dataset.page){
+          showPage(this.dataset.page);
+        }
+        // close mobile menu
+        var menu = document.getElementById('nav-links');
+        if(menu) menu.classList.remove('open');
+      });
+    });
+    // Services nav → scroll to #services (What We Do) on home page
+    var svcLink = document.getElementById('nav-services-link');
+    if(svcLink){
+      svcLink.addEventListener('click', function(e){
+        e.preventDefault();
+        showPage('home');
+        setActiveNav('services');
+        setTimeout(function(){
+          var el = document.getElementById('services');
+          if(el) el.scrollIntoView({behavior:'smooth'});
+        }, 50);
+        var menu = document.getElementById('nav-links');
+        if(menu) menu.classList.remove('open');
+      });
+    }
+    // Logo → home page
+    var logoLink = document.getElementById('nav-logo-link');
+    if(logoLink){
+      logoLink.addEventListener('click', function(e){
+        e.preventDefault();
+        showPage('home');
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+    }
+    // Footer section links: data-goto-section="page:sectionId"
+    document.querySelectorAll('[data-goto-section]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var parts = this.dataset.gotoSection.split(':');
+        var page = parts[0], sectionId = parts[1];
+        showPage(page);
+        setTimeout(function(){
+          var el = document.getElementById(sectionId);
+          if(el) el.scrollIntoView({behavior:'smooth'});
+        }, 60);
+        var menu = document.getElementById('nav-links');
+        if(menu) menu.classList.remove('open');
+      });
+    });
+    // CTA contact buttons
+    document.querySelectorAll('[data-goto-contact]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        showPage('about');
+      });
+    });
+    // CTA band "Get in Touch" button
+    var ctaBandBtn = document.getElementById('ctaband-btn');
+    if(ctaBandBtn){
+      ctaBandBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        showPage('about');
+        setTimeout(function(){
+          var el = document.getElementById('contact');
+          if(el) el.scrollIntoView({behavior:'smooth'});
+        }, 60);
+      });
+    }
+    // "Get in Touch" nav button → about page, scroll to contact
+    var gitBtn = document.getElementById('nav-get-in-touch');
+    if(gitBtn){
+      gitBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        showPage('about');
+        setTimeout(function(){
+          var el = document.getElementById('contact');
+          if(el) el.scrollIntoView({behavior:'smooth'});
+        }, 60);
+        var menu = document.getElementById('nav-links');
+        if(menu) menu.classList.remove('open');
+      });
+    }
+    // Hero "Start a Search" button → about page, scroll to contact
+    var heroSearch = document.getElementById('hero-start-search');
+    if(heroSearch){
+      heroSearch.addEventListener('click', function(e){
+        e.preventDefault();
+        showPage('about');
+        setTimeout(function(){
+          var el = document.getElementById('contact');
+          if(el) el.scrollIntoView({behavior:'smooth'});
+        }, 60);
+      });
+    }
+    showPage('home');
+    // Hero "How We Work" button → scroll to #process section
+    var heroHowWork = document.getElementById('hero-how-work');
+    if(heroHowWork){
+      heroHowWork.addEventListener('click', function(e){
+        e.preventDefault();
+        var el = document.getElementById('process');
+        if(el) el.scrollIntoView({behavior:'smooth'});
+      });
+    }
+  });
+})();
+
+// Legal modal helpers — modals are injected above the scripts
+function openLegal(id){
+  var el=document.getElementById('modal-'+id);
+  if(el){el.classList.add('open');document.body.style.overflow='hidden';}
+}
+function closeLegal(id){
+  var el=document.getElementById('modal-'+id);
+  if(el){el.classList.remove('open');document.body.style.overflow='';}
+}
+// Close on overlay click
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('legal-modal-overlay')){
+    e.target.classList.remove('open');document.body.style.overflow='';
+  }
+});
+// Close on Escape
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    document.querySelectorAll('.legal-modal-overlay.open').forEach(function(m){
+      m.classList.remove('open');document.body.style.overflow='';
+    });
+  }
+});
+
+
+
+
+
+// Seamless ticker — CSS animation with exact pixel distance, measured after full page load
+// Ticker animation handled via pure CSS (translateX -50%)
