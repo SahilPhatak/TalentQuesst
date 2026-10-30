@@ -68,13 +68,14 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
         if(menu) menu.classList.remove('open');
       });
     });
-    // Services nav → scroll to #services (What We Do) on home page
+    // Services nav → URL /services, scroll to #services section on home page
     var svcLink = document.getElementById('nav-services-link');
     if(svcLink){
       svcLink.addEventListener('click', function(e){
         e.preventDefault();
-        showPage('home');
+        showPage('home', false);
         setActiveNav('services');
+        history.pushState({page:'services'}, '', '/services');
         setTimeout(function(){
           var el = document.getElementById('services');
           if(el) el.scrollIntoView({behavior:'smooth'});
@@ -112,6 +113,7 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
       btn.addEventListener('click', function(e){
         e.preventDefault();
         showPage('about');
+        history.pushState({page:'about'}, '', '/contact');
       });
     });
     // CTA band "Get in Touch" button
@@ -119,7 +121,8 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     if(ctaBandBtn){
       ctaBandBtn.addEventListener('click', function(e){
         e.preventDefault();
-        showPage('about');
+        showPage('about', false);
+        history.pushState({page:'about'}, '', '/contact');
         setTimeout(function(){
           var el = document.getElementById('contact');
           if(el) el.scrollIntoView({behavior:'smooth'});
@@ -131,7 +134,8 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     if(gitBtn){
       gitBtn.addEventListener('click', function(e){
         e.preventDefault();
-        showPage('about');
+        showPage('about', false);
+        history.pushState({page:'about'}, '', '/contact');
         setTimeout(function(){
           var el = document.getElementById('contact');
           if(el) el.scrollIntoView({behavior:'smooth'});
@@ -145,7 +149,8 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     if(heroSearch){
       heroSearch.addEventListener('click', function(e){
         e.preventDefault();
-        showPage('about');
+        showPage('about', false);
+        history.pushState({page:'about'}, '', '/contact');
         setTimeout(function(){
           var el = document.getElementById('contact');
           if(el) el.scrollIntoView({behavior:'smooth'});
