@@ -50,15 +50,15 @@ section{padding-block:clamp(40px,5.5vw,72px)}
 #main-nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.5),0 1px 0 rgba(200,169,107,.1)}
 .nav-inner{max-width:1160px;margin:0 auto;padding:0 max(24px,env(safe-area-inset-left,0px));height:120px;display:flex;align-items:center;justify-content:space-between;gap:32px}
 .nav-logo-wrap{display:flex;flex-direction:column;gap:3px;text-decoration:none;flex-shrink:0}
-.nav-logo{font-family:var(--font-head);font-size:1.4rem;font-weight:800;letter-spacing:-.02em;display:flex;align-items:baseline}
-.nav-tagline{font-family:var(--font-head);font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C8A96B;opacity:.85;line-height:1}
+.nav-logo{font-family:var(--font-head);font-size:1.9rem;font-weight:800;letter-spacing:-.02em;display:flex;align-items:baseline}
+.nav-tagline{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C8A96B;opacity:.85;line-height:1}
 .logo-t{color:#F4EFE6}
 .logo-q{color:#C8A96B}
 .nav-links{display:flex;align-items:center;gap:28px;flex:1}
-.nav-links a{font-family:var(--font-head);font-size:13px;font-weight:600;letter-spacing:.03em;color:var(--fg-muted);transition:color .15s;padding:4px 0;border-bottom:2px solid transparent}
+.nav-links a{font-family:var(--font-head);font-size:16px;font-weight:600;letter-spacing:.03em;color:var(--fg-muted);transition:color .15s;padding:4px 0;border-bottom:2px solid transparent}
 .nav-links a:hover{color:var(--fg);border-bottom-color:var(--orange)}
 .nav-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.nav-cta{font-family:var(--font-head);font-size:13px;font-weight:700;padding:9px 22px;border-radius:var(--r-xs);background:var(--orange);color:var(--fg-inv);border:none;transition:background .15s}
+.nav-cta{font-family:var(--font-head);font-size:16px;font-weight:700;padding:12px 28px;border-radius:var(--r-xs);background:var(--orange);color:var(--fg-inv);border:none;transition:background .15s}
 .nav-cta:hover{background:var(--orange-dark)}.nav-cta:active{transform:scale(.97)}
 .hamburger{display:none;flex-direction:column;gap:5px;padding:6px}
 .hamburger span{width:22px;height:1.5px;background:var(--fg);display:block;transition:all .25s}
