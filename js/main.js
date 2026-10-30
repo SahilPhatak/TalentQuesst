@@ -37,7 +37,7 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     },
     services: {
       title: 'Recruitment & Talent Search Services | TalentQuesst',
-      desc:  'From targeted talent search to curated shortlists, TalentQuesst delivers end-to-end recruitment support for business-critical roles across key business functions.'
+      desc:  'From targeted talent search to curated shortlists, TalentQuesst provides end-to-end recruitment solutions for business-critical roles across key functions.'
     },
     about: {
       title: 'Contact TalentQuesst | Let\'s Build Better Teams',
