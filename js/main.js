@@ -60,10 +60,14 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     document.querySelectorAll('.nav-page-link').forEach(function(a){
       a.addEventListener('click', function(e){
         e.preventDefault();
-        if(this.dataset.page){
-          showPage(this.dataset.page);
+        var pg = this.dataset.page;
+        if(pg === 'services'){
+          // handled by svcLink below
+          return;
         }
-        // close mobile menu
+        if(pg){
+          showPage(pg);
+        }
         var menu = document.getElementById('nav-links');
         if(menu) menu.classList.remove('open');
       });
