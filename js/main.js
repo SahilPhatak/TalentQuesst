@@ -78,7 +78,13 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
   // Handle browser back/forward
   window.addEventListener('popstate', function(e){
     var id = (e.state && e.state.page) || urlPages[location.pathname] || 'home';
-    showPage(id, false);
+    if(id === 'services'){
+      showPage('home', false);
+      setActiveNav('services');
+      updateMeta('services');
+    } else {
+      showPage(id, false);
+    }
   });
   function init(){
     document.querySelectorAll('.nav-page-link').forEach(function(a){
@@ -99,6 +105,7 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
         e.preventDefault();
         showPage('home', false);
         setActiveNav('services');
+        updateMeta('services');
         history.pushState({page:'services'}, '', '/services');
         setTimeout(function(){
           var el = document.getElementById('services');
