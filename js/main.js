@@ -80,7 +80,7 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     var id = (e.state && e.state.page) || urlPages[location.pathname] || 'home';
     showPage(id, false);
   });
-  document.addEventListener('DOMContentLoaded', function(){
+  function init(){
     document.querySelectorAll('.nav-page-link').forEach(function(a){
       a.addEventListener('click', function(e){
         e.preventDefault();
@@ -193,7 +193,12 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
         if(el) el.scrollIntoView({behavior:'smooth'});
       });
     }
-  });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 
 // Legal modal helpers — modals are injected above the scripts
