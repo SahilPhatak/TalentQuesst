@@ -25,7 +25,11 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
       a.classList.toggle('active-page', a.dataset.page===pageId);
     });
   }
-  function showPage(id){
+  // Map page id → URL path
+  var pageUrls = {home:'/', services:'/services', about:'/contact'};
+  var urlPages = {'/':'home', '/services':'services', '/contact':'about'};
+
+  function showPage(id, pushState){
     pages.forEach(function(p){
       var el = document.getElementById('page-'+p);
       if(el) el.classList.toggle('active', p===id);
@@ -35,6 +39,10 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     });
     window.scrollTo(0,0);
     setActiveNav(id);
+    // Update URL
+    if(pushState !== false && pageUrls[id]){
+      history.pushState({page:id}, '', pageUrls[id]);
+    }
     // re-trigger reveal for newly visible page
     setTimeout(function(){
       document.querySelectorAll('#page-'+id+' .reveal').forEach(function(el){
@@ -42,6 +50,12 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
       });
     },50);
   }
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', function(e){
+    var id = (e.state && e.state.page) || urlPages[location.pathname] || 'home';
+    showPage(id, false);
+  });
   document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.nav-page-link').forEach(function(a){
       a.addEventListener('click', function(e){
@@ -138,7 +152,9 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
         }, 60);
       });
     }
-    showPage('home');
+    // Load correct page based on current URL
+    var initPage = urlPages[location.pathname] || 'home';
+    showPage(initPage, false);
     // Hero "How We Work" button → scroll to #process section
     var heroHowWork = document.getElementById('hero-how-work');
     if(heroHowWork){
