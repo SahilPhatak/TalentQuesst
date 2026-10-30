@@ -29,6 +29,29 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
   var pageUrls = {home:'/', services:'/services', about:'/contact'};
   var urlPages = {'/':'home', '/services':'services', '/contact':'about'};
 
+  // Per-page SEO meta
+  var pageMeta = {
+    home: {
+      title: 'TalentQuesst | Non-Tech Talent Recruitment Partner in India',
+      desc:  'Specialist search for business-critical Marketing, Sales, HR, Finance, Operations and Legal roles.'
+    },
+    services: {
+      title: 'Recruitment & Talent Search Services | TalentQuesst',
+      desc:  'From targeted talent search to curated shortlists, TalentQuesst delivers end-to-end recruitment support for business-critical roles across key business functions.'
+    },
+    about: {
+      title: 'Contact TalentQuesst | Let\'s Build Better Teams',
+      desc:  'Connect with TalentQuesst to discuss your hiring requirements and discover a more focused approach to finding the right talent.'
+    }
+  };
+  function updateMeta(id){
+    var m = pageMeta[id];
+    if(!m) return;
+    document.title = m.title;
+    var tag = document.querySelector('meta[name="description"]');
+    if(tag) tag.setAttribute('content', m.desc);
+  }
+
   function showPage(id, pushState){
     pages.forEach(function(p){
       var el = document.getElementById('page-'+p);
@@ -39,7 +62,8 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
     });
     window.scrollTo(0,0);
     setActiveNav(id);
-    // Update URL
+    // Update URL and meta
+    updateMeta(id);
     if(pushState !== false && pageUrls[id]){
       history.pushState({page:id}, '', pageUrls[id]);
     }
