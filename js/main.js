@@ -61,15 +61,11 @@ document.getElementById('contact-form').addEventListener('submit',e=>{
       a.addEventListener('click', function(e){
         e.preventDefault();
         var pg = this.dataset.page;
-        if(pg === 'services'){
-          // handled by svcLink below
-          return;
-        }
-        if(pg){
+        if(pg && pg !== 'services'){
           showPage(pg);
+          var menu = document.getElementById('nav-links');
+          if(menu) menu.classList.remove('open');
         }
-        var menu = document.getElementById('nav-links');
-        if(menu) menu.classList.remove('open');
       });
     });
     // Services nav → URL /services, scroll to #services section on home page
