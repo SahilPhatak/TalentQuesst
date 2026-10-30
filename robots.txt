@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.talentquesst.in/sitemap.xml
+Sitemap: https://talentquesst.in/sitemap.xml
