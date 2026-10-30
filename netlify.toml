@@ -3,19 +3,19 @@
 
 [[redirects]]
   from = "http://talentquesst.in/*"
-  to   = "https://www.talentquesst.in/:splat"
+  to   = "https://talentquesst.in/:splat"
   status = 301
   force  = true
 
 [[redirects]]
   from = "http://www.talentquesst.in/*"
-  to   = "https://www.talentquesst.in/:splat"
+  to   = "https://talentquesst.in/:splat"
   status = 301
   force  = true
 
 [[redirects]]
-  from = "https://talentquesst.in/*"
-  to   = "https://www.talentquesst.in/:splat"
+  from = "https://www.talentquesst.in/*"
+  to   = "https://talentquesst.in/:splat"
   status = 301
   force  = true
 
