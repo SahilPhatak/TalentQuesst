@@ -159,7 +159,7 @@ section{padding-block:clamp(40px,5.5vw,72px)}
 .clients-ticker-label{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-subtle);text-align:center;margin-bottom:24px}
 .clients-ticker-band{overflow:hidden;white-space:nowrap}
 .logo-pill img{width:100px!important;height:40px!important;object-fit:contain!important;display:block}
-.clients-ticker-track{display:inline-flex;align-items:center;gap:0;will-change:transform;font-size:0;animation:seamless-tick 20s linear infinite}@keyframes seamless-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.clients-ticker-track{display:inline-flex;align-items:center;gap:0;will-change:transform;font-size:0;animation:seamless-tick 32s linear infinite}@keyframes seamless-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .clients-ticker-track:hover{animation-play-state:paused}
 .ticker-item{padding:0 22px;display:inline-flex;align-items:center}
 .ticker-logo-wrap{display:inline-flex;align-items:center;justify-content:center;padding:0 4px}
